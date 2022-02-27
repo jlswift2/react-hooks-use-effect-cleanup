@@ -4,12 +4,14 @@ function Clock() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    setInterval(() => {
+    const timerID = setInterval(() => {
       setTime(new Date());
     }, 1000);
-  }, []);
 
-  return <div>{time.toString()}</div>;
-}
+    // returning a cleanup function
+    return function cleanup() {
+      clearInterval(timerID);
+    };
+  }, []);
 
 export default Clock;
